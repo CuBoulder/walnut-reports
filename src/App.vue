@@ -9,10 +9,16 @@
 import HelloWorld from './components/HelloWorld.vue'
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+    name: 'App',
+    mounted: function(){
+        fetch('/api/instance')
+        .then(res => res.json())
+        .then(res => console.log(res))
+        .catch(err => console.error(err));
+    },
+    components: {
+        HelloWorld
+    }
 }
 </script>
 
