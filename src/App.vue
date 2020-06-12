@@ -1,34 +1,50 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <BaseTheme v-slot:content @onChangeReport="changeReport" :report="report">
+    <template v-if="report === 'Walnut'">
+<!--    show an overview of users and instances     -->
+        <Walnut/>
+    </template>
+    <template v-else-if="report === 'Available Instances'">
+<!--    Get a list of the available instances -->
+        <AvailableInstances/>
+    </template>
+    <template v-else-if="report === 'Instance Summary'">
+<!--    show a summary of all of the instances -->
+        <InstanceSummary/>
+    </template>
+    <template v-else-if="report === 'Lookup Instance'">
+        <Walnut/>
+    </template>
+    <template v-else>
+        <h1> sdfhsdjafhjk </h1>
+    </template>
+
+  </BaseTheme>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// this template manages which report to show
+
+import BaseTheme from './components/BaseTheme.vue';
+import Walnut from './components/Walnut.vue';
+import AvailableInstances from './components/AvailableInstances';
+import InstanceSummary from './components/InstanceSummary';
 
 export default {
     name: 'App',
-    mounted: function(){
-        fetch('/api/instance')
-        .then(res => res.json())
-        .then(res => console.log(res))
-        .catch(err => console.error(err));
+    data: function(){
+        return{
+          items: [],
+          report: 'Walnut'
+        };
+    },
+    methods:{
+        changeReport: function(reportName){
+            this.report = reportName;
+        }
     },
     components: {
-        HelloWorld
+        BaseTheme, Walnut, AvailableInstances, InstanceSummary
     }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
