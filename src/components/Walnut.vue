@@ -106,7 +106,7 @@ export default {
         .then(res => res.json())
         .then(res => {
             this.items = res['_items'];
-            this.maxPages = Math.floor(res._meta.total/res._meta.max_results);
+            this.maxPages = Math.ceil(res._meta.total/res._meta.max_results);
             this.totalResults = res._meta.total; 
         })
         .catch(err => console.error(err));
