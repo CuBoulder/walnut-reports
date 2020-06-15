@@ -22,20 +22,21 @@
                 <h2 id="title"> Walnut </h2>
             </div>
             <li @click="$emit('onChangeReport', 'Walnut')" class="report-option"> Walnut </li>
-            <li> Instances </li>
+            <li> <strong>Instances </strong> </li>
                 <ul>
                     <li @click="$emit('onChangeReport', 'Available Instances')" class="report-option">Available Instances</li>
                     <li @click="$emit('onChangeReport', 'Instance Summary')" class="report-option">Instance Summary</li>
-                    <li class="report-option">Instances by Bundle</li>
+                    <li @click="$emit('onChangeReport', 'Instances by Bundle')" class="report-option">Instances by Bundle</li>
                 </ul>
-            <li> Users </li>
+            <li> <strong> Users </strong> </li>
                 <ul>
-                    <li class="report-option">All Users</li>
-                    <li class="report-option">Site owners</li>
-                    <li class="report-option">Content Editors</li>
+                    <li @click="$emit('onChangeReport', 'All Users')" class="report-option">All Users</li>
+                    <li @click="$emit('onChangeReport', 'Site Owners')" class="report-option">Site owners</li>
+                    <li @click="$emit('onChangeReport', 'Content Editors')" class="report-option">Content Editors</li>
                 </ul>
-            <li class="report-option"> CSE </li>
-            <li class="report-option"> Site Stats </li>
+            <li @click="$emit('onChangeReport', 'CSE')" class="report-option"> CSE </li>
+            <li @click="$emit('onChangeReport', 'Site Stats')" class="report-option"> Site Stats </li>
+            <li @click="$emit('onChangeReport', 'Walnut Users')" class="report-option"> Walnut API Users </li>
         </ul>
     </div>
     <div class="grid-child-c">
