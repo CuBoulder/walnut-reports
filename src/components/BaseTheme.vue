@@ -77,11 +77,11 @@ export default {
         }
     },
     methods:{
-        getPathDetails: async function(){
-            for(let i=1; i< 20; i++){
+        getPathDetails: async function(pages){
+            for(let i=1; i <= pages; i++){
                 let res = await fetch(`/instance?page=${i}`).then(res => res.json());
                 let items = await res._items;
-                for(let j=0; j< 25; j++){
+                for(let j=0; j< items.length; j++){
                     if(items[j].path === this.search){
                         this.details = `<h1> ${items[j].path }</h1>
                                         <p> <strong> Created By: </strong> ${items[j].created_by}</p>
@@ -120,7 +120,9 @@ export default {
             }
             else{
                 // search for a path if not an email or identikey
-                await this.getPathDetails();
+                let res = await fetch(`/instance`).then(res => res.json());
+                let max = Math.ceil(res._meta.total/res._meta.max_results);
+                await this.getPathDetails(max);
             }
             return;
         }
