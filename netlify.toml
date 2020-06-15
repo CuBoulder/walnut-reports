@@ -1,12 +1,12 @@
 [[redirects]]
-  from = "/instance"
-  to = "http://104.199.127.215/instance"
+  from = "/instance/*"
+  to = "http://104.199.127.215/instance/:splat"
   status = 200
   force = true
   headers = {X-From = "Netlify"}
 [[redirects]]
-  from = "/accounts"
-  to = "http://104.199.127.215/accounts"
+  from = "/accounts/*"
+  to = "http://104.199.127.215/accounts/:splat"
   status = 200
   force = true
   headers = {X-From = "Netlify"}
