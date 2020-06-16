@@ -33,6 +33,9 @@ export default {
           report: 'Walnut'
         };
     },
+    mounted: function(){
+        this.$store.dispatch('fetch_all_instances');
+    },
     methods:{
         changeReport: function(reportName){
             this.report = reportName;
