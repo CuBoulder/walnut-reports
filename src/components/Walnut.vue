@@ -27,8 +27,8 @@
                         </tr>
                         <template v-for="i in items">
                             <tr :key="i.sid" >
-                                <td> {{i.created_by}} </td>
-                                <td> {{i.pantheon_size}} </td>
+                                <td> {{i.created_by || 'n/a'}} </td>
+                                <td> {{i.pantheon_size || 'n/a'}} </td>
                                 <td class="see-more" @click="getDetails(i['_id'])"> {{i.path}} </td>
                             </tr>
                         </template> 
@@ -40,21 +40,26 @@
                 <div class="header-options">
                 <h3> {{userSelected}}: {{totalResults}}</h3>
                 <select name="users-options" v-model="userSelected">
-                  <option value="Developer">Developer</option>
-                  <option value="Access Manager">access manager</option>
-                  <option value="Campaign Manager">campaign Manager</option>
-                  <option value="Admin">admin</option>
+                  <option value="all" selected> All </option>o
+                  <option value="access_manager">Access Manager</option>
+                  <option value="campaign_manager">Campaign Manager</option>
+                  <option value="configuration_manager">Configuration Manager</option>
+                  <option value="content_editor">Content Editor</option>
+                  <option value="edit_my_content">Edit My Content</option>
+                  <option value="form_manager">Form Manager</option>
+                  <option value="site_editor">Site Editor</option>
+                  <option value="site_owner">Site Owner</option>
                 </select>
                 </div>
                 <div>
                     <table>
                         <tr>
-                            <th> Indentikey </th>
+                            <th> Identikey </th>
                             <th> Email </th>
                         </tr>
                         <template v-for="i in items">
                             <tr :key="i.sid" >
-                                <td> {{i.created_by}} </td>
+                                <td> {{i.created_by || 'n/a'}} </td>
                                 <td> {{i.created_by + '@colorado.edu'}} </td>
                             </tr>
                         </template> 
@@ -67,13 +72,13 @@
         <div class="card content-child-b">
             <template v-if="details">
                 <h1> {{details.path }}</h1>
-                <p> <strong> Created By: </strong> {{details.created_by}}</p>
-                <p> <strong> CSE Creator: </strong> {{details.cse_creator}}</p>
-                <p> <strong> CSE ID: </strong> {{details.cse_id}}</p>
-                <p> <strong> Google Tag Client ID: </strong> {{details.google_tag_client_container_id}}</p>
-                <p> <strong> Instance Type: </strong> {{details.instance_type}}</p>
-                <p> <strong> Pantheon Size: </strong> {{details.pantheon_size}}</p>
-                <p> <strong> Modified By: </strong> {{details.modified_by}}</p>
+                <p> <strong> Created By: </strong> {{details.created_by || 'n/a'}}</p>
+                <p> <strong> CSE Creator: </strong> {{details.cse_creator || 'n/a'}}</p>
+                <p> <strong> CSE ID: </strong> {{details.cse_id || 'n/a'}}</p>
+                <p> <strong> Google Tag Client ID: </strong> {{details.google_tag_client_container_id || 'n/a'}}</p>
+                <p> <strong> Instance Type: </strong> {{details.instance_type || 'n/a'}}</p>
+                <p> <strong> Pantheon Size: </strong> {{details.pantheon_size || 'n/a'}}</p>
+                <p> <strong> Modified By: </strong> {{details.modified_by || 'n/a'}}</p>
                 <h1> Bundles</h1>
                 <p> list of bundles </p>
                 <h1> Users</h1>
@@ -92,24 +97,16 @@ export default {
     data: function(){
         return {
             instanceSelected: "All",
-            userSelected: "Admin",
+            userSelected: "all",
             option: "instance",
-            items: [],
             details: null,
             page: 1,
-            maxPages: 1,
-            totalResults: 0
+            totalResults: 500
         }
     },
-    mounted: function(){
-        fetch(`/instance`)
-        .then(res => res.json())
-        .then(res => {
-            this.items = res['_items'];
-            this.maxPages = Math.ceil(res._meta.total/res._meta.max_results);
-            this.totalResults = res._meta.total; 
-        })
-        .catch(err => console.error(err));
+    computed:{
+        items(){return this.$store.state.items; },
+        maxPages(){return this.$store.state.maxInstancePages; }
     },
     methods:{
         handleClick: function(e, id){

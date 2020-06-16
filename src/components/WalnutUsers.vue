@@ -1,4 +1,4 @@
-<template>
+<template v-slot:content>
     <div id="content">
     <div class="card" v-if="!auth">
         <div>

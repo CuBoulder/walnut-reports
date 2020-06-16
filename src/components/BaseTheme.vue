@@ -17,11 +17,10 @@
     </div>
     <div class="grid-child-b">
         <ul id="side-menu">
-            <div id="logo-header" class="container">
+            <div id="logo-header" class="container" @click="$emit('onChangeReport', 'Walnut')">
                 <img src="/cu-logo.png" alt="cu logo" width="30px" height="auto"/>
                 <h2 id="title"> Walnut </h2>
             </div>
-            <li @click="$emit('onChangeReport', 'Walnut')" class="report-option"> Walnut </li>
             <li> <strong>Instances </strong> </li>
                 <ul>
                     <li @click="$emit('onChangeReport', 'Available Instances')" class="report-option">Available Instances</li>
@@ -84,13 +83,13 @@ export default {
                 for(let j=0; j< items.length; j++){
                     if(items[j].path === this.search){
                         this.details = `<h1> ${items[j].path }</h1>
-                                        <p> <strong> Created By: </strong> ${items[j].created_by}</p>
-                                        <p> <strong> CSE Creator: </strong> ${items[j].cse_creator}</p>
-                                        <p> <strong> CSE ID: </strong> ${items[j].cse_id}</p>
-                                        <p> <strong> Google Tag Client ID: </strong> ${items[j].google_tag_client_container_id}</p>
-                                        <p> <strong> Instance Type: </strong> ${items[j].instance_type}</p>
-                                        <p> <strong> Pantheon Size: </strong> ${items[j].pantheon_size}</p>
-                                        <p> <strong> Modified By: </strong> ${items[j].modified_by}</p>
+                                        <p> <strong> Created By: </strong> ${items[j].created_by || 'n/a'}</p>
+                                        <p> <strong> CSE Creator: </strong> ${items[j].cse_creator || 'n/a'}</p>
+                                        <p> <strong> CSE ID: </strong> ${items[j].cse_id || 'n/a'}</p>
+                                        <p> <strong> Google Tag Client ID: </strong> ${items[j].google_tag_client_container_id || 'n/a'}</p>
+                                        <p> <strong> Instance Type: </strong> ${items[j].instance_type || 'n/a'}</p>
+                                        <p> <strong> Pantheon Size: </strong> ${items[j].pantheon_size || 'n/a'}</p>
+                                        <p> <strong> Modified By: </strong> ${items[j].modified_by || 'n/a'}</p>
                                         <h1> Bundles</h1>
                                         <p> list of bundles </p>
                                         <h1> Users</h1>
@@ -120,9 +119,7 @@ export default {
             }
             else{
                 // search for a path if not an email or identikey
-                let res = await fetch(`/instance`).then(res => res.json());
-                let max = Math.ceil(res._meta.total/res._meta.max_results);
-                await this.getPathDetails(max);
+                await this.getPathDetails( this.$store.state.maxInstancePages );
             }
             return;
         }
@@ -182,6 +179,10 @@ p{
     align-items: center;
     background-color: white;
     padding-left: 0px;
+}
+
+#logo-header:hover{
+    cursor: pointer;
 }
 
 .menu-item{
