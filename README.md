@@ -1,24 +1,8 @@
-# walnut-reports
-
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# Walnut Reports
+Frontend interface for viewing reports and data about Web Express with Walnut.
+### Installation
+1. Clone and set up [Walnut](https://github.com/CuBoulder/walnut) locally
+	- Start local server
+2. Clone this repo
+	- ```` npm install	````
+	- ```` npm run serve ````
